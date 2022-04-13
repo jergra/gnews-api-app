@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.showcase {
+    background: url('https://images.pexels.com/photos/9469733/pexels-photo-9469733.jpeg') 
+    no-repeat right/cover;
+    height: 550px;
+}
+
+.showcase .overlay {
+    background-color: rgba(0,0,0,0.6);
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+  
