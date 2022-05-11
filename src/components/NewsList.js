@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import SearchForm from './SearchForm'
 import NewsItem from './NewsItem'
-import terms from '../data/terms'
+//import terms from '../data/terms'
 
 const NewsList = () => {
 
-    const [showTop, setShowTop] = useState(false);
+    if (localStorage.getItem("terms") === null) {
+        localStorage.setItem("terms", "website coding javascript HTML css classical music guitar piano Liszt Bach language learning ESL German Italian Chinese Spanish")
+    }
+    
+    const [searchTerms, setSearchTerms] = useState(localStorage.getItem("terms"))
+    const terms = searchTerms.split(' ')
+    console.log('searchTerms in NewsList.js:', searchTerms)
+    console.log('terms in NewsList.js:', terms)
 
+    const [showTop, setShowTop] = useState(false);
+    
     useEffect(() => {
         const onScroll = () => {
             //console.log('window.pageYOffset:', window.pageYOffset)
@@ -51,7 +60,7 @@ const NewsList = () => {
         
     useEffect(() => { 
         const getArticles = async () => {
-            //console.log('query in useEffect:', query)
+            console.log('query in useEffect:', query)
 
             fetch(`https://gnews.io/api/v4/search?q=${query}&token=${process.env.REACT_APP_GNEWS_API_KEY}`)
                 .then(function (response) {
@@ -76,11 +85,9 @@ const NewsList = () => {
                 <div className="mb-6 text-4xl font-semibold text-white capitalize mt-60">
                     articles about {query}
                 </div>
-                
                 <SearchForm 
                     newSearch={(query) => setQuery(query)}
                 />
-                
             </div>
         </div>
       

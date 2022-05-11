@@ -18,8 +18,7 @@ to search for news articles of interest.
 
 This is better than using NewsAPI (https://newsapi.org/) because
 GNews has a free tier for a deployed website, whereas
-NewsAPI will only work for free locally. Using NewsAPI on a 
-deployed website would require paying a monthly fee.
+NewsAPI will only work for free locally.
 
 Enter a search term, or allow a random choice of one
 or two search terms selected from a list of interests.
