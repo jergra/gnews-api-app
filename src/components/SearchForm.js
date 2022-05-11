@@ -7,8 +7,8 @@ const SearchForm = ({newSearch}) => {
     
     const [searchTerms, setSearchTerms] = useState(localStorage.getItem("terms"))
     const terms = searchTerms.split(' ')
-    console.log('searchTerms in SearchForm.js:', searchTerms)
-    console.log('terms in SearchForm.js:', terms)
+    // console.log('searchTerms in SearchForm.js:', searchTerms)
+    // console.log('terms in SearchForm.js:', terms)
 
     let oneOrTwo = Math.floor(Math.random() * 2 + 1)
     //console.log('one or two:', oneOrTwo)
@@ -93,13 +93,13 @@ const SearchForm = ({newSearch}) => {
                         <div className="flex mt-4">
                             <button
                                 type="submit"
-                                className="w-20 pt-1 mr-3 text-sm font-bold text-white bg-teal-700 rounded"
+                                className="w-20 py-1 mr-3 text-sm font-bold text-white bg-teal-700 rounded"
                             >
                                 SUBMIT
                             </button>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="w-20 pt-1 pb-1 pl-3 pr-3 text-sm font-bold text-white bg-teal-700 rounded"
+                                className="w-20 py-1 text-sm font-bold text-white bg-teal-700 rounded"
                             >
                                 CLOSE
                             </button>

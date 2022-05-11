@@ -11,8 +11,8 @@ const NewsList = () => {
     
     const [searchTerms, setSearchTerms] = useState(localStorage.getItem("terms"))
     const terms = searchTerms.split(' ')
-    console.log('searchTerms in NewsList.js:', searchTerms)
-    console.log('terms in NewsList.js:', terms)
+    // console.log('searchTerms in NewsList.js:', searchTerms)
+    // console.log('terms in NewsList.js:', terms)
 
     const [showTop, setShowTop] = useState(false);
     
@@ -60,7 +60,7 @@ const NewsList = () => {
         
     useEffect(() => { 
         const getArticles = async () => {
-            console.log('query in useEffect:', query)
+            //console.log('query in useEffect:', query)
 
             fetch(`https://gnews.io/api/v4/search?q=${query}&token=${process.env.REACT_APP_GNEWS_API_KEY}`)
                 .then(function (response) {
