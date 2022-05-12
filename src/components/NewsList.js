@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import SearchForm from './SearchForm'
 import NewsItem from './NewsItem'
+import Scroll from './Scroll'
 //import terms from '../data/terms'
 
 const NewsList = () => {
 
+    const [showModal, setShowModal] = useState(false)
+    const [effect, setEffect] = useState(false);
+    
     if (localStorage.getItem("terms") === null) {
         localStorage.setItem("terms", "website coding javascript HTML css classical music guitar piano Liszt Bach language learning ESL German Italian Chinese Spanish")
     }
@@ -14,27 +18,13 @@ const NewsList = () => {
     // console.log('searchTerms in NewsList.js:', searchTerms)
     // console.log('terms in NewsList.js:', terms)
 
-    const [showTop, setShowTop] = useState(false);
-    
-    useEffect(() => {
-        const onScroll = () => {
-            //console.log('window.pageYOffset:', window.pageYOffset)
-            if (window.pageYOffset > 10) {
-                setShowTop(true)
-            } else {
-                setShowTop(false)
-            }
-        };
-    
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
-
-    const goToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+    const searchTermsChangeHandler = (e) => {
+        localStorage.setItem("terms", e.target.value)
+        setSearchTerms(e.target.value);
+    };
+    const searchTermsSubmitHandler = (e) => {
+        e.preventDefault();
+        //newSearch(query)
     };
 
     //console.log('terms in NewsList.js:', terms)
@@ -85,9 +75,20 @@ const NewsList = () => {
                 <div className="mb-6 text-4xl font-semibold text-white capitalize mt-60">
                     articles about {query}
                 </div>
+                <div className="flex">
                 <SearchForm 
                     newSearch={(query) => setQuery(query)}
                 />
+                <div>
+                    <button
+                        onClick={() => setShowModal(true)}
+                        className="pt-1 pb-1 pl-3 pr-3 ml-2 text-sm font-bold text-white bg-teal-700 rounded"
+                    >
+                        EDIT
+                    </button>
+                </div>
+                
+                </div>
             </div>
         </div>
       
@@ -103,19 +104,52 @@ const NewsList = () => {
             ))}
         </div>
 
-        {showTop ? (
-            <div className='fixed bottom-5 right-5'>
-                <button 
-                    className="pt-1 pb-1 pl-3 pr-3 text-sm font-bold text-white bg-teal-700 rounded"
-                    onClick={goToTop}
-                >
-                    TOP
-                </button>
-            </div>
-        ) : (
-            <div></div>
-        )}
-        
+        <Scroll />
+
+        {
+            showModal && (
+                <div className="py-7 px-10 bg-gray-200 w-[700px] h-[350px] absolute top-40 left-60">
+                    <div>Edit the possible search terms:</div>
+                    <form 
+                        onSubmit={searchTermsSubmitHandler}
+                        className="flex flex-col mt-4 mb-4"
+                    >
+                        <textarea
+                            type="text"
+                            name="query"
+                            rows="4" 
+                            cols="40"
+                            //placeholder={searchTerms}
+                            defaultValue={searchTerms}
+                            onChange={searchTermsChangeHandler}
+                            className="pl-1 border-2 border-gray-400 border-solid rounded"
+                        />
+                        
+                        <div className="flex mt-4">
+                            <button
+                                type="submit"
+                                // this animation is in tailwind.config.js 
+                                className={`${
+                                    effect && "animate-wiggle"
+                                  } bg-teal-700 text-white rounded w-20 py-1 text-sm font-bold mr-3`}
+                                onClick={() => {setEffect(true)}}
+                                onAnimationEnd={() => setEffect(false)}
+                            >
+                                SUBMIT
+                            </button>
+                            <button
+                                onClick={() => setShowModal(false)}
+                                className="w-20 py-1 text-sm font-bold text-white bg-teal-700 rounded"
+                            >
+                                CLOSE
+                            </button>
+                        </div>
+                        
+                    </form>
+                </div>
+            ) 
+        }
+
       </>
   )
 }
